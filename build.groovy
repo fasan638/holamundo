@@ -14,7 +14,7 @@ pipeline{
         // This can be http or https
         NEXUS_PROTOCOL = "http"
         // Where your Nexus is running. 'nexus-3' is defined in the docker-compose file
-        NEXUS_URL = "192.168.42.131:8081"
+        NEXUS_URL = "192.168.0.46:8081"
         // Repository where we will upload the artifact
         NEXUS_REPOSITORY = "maven-releases"
         // Jenkins credential id to authenticate to Nexus OSS
@@ -27,12 +27,12 @@ pipeline{
     stages{
         stage('Checkout'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:calamza/holamundo.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/fasan638/holamundo.git']]])
             }
         }
         stage('Build artifact'){
             agent {
-                label 'maven'
+                label 'master'
             }
             steps{
                 sh '''
