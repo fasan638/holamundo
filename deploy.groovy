@@ -1,6 +1,6 @@
 pipeline{
     agent {
-         label 'docker'
+         label 'master'
     }
     /*
     tools {
@@ -14,7 +14,7 @@ pipeline{
         // This can be http or https
         NEXUS_PROTOCOL = "http"
         // Where your Nexus is running. 'nexus-3' is defined in the docker-compose file
-        NEXUS_URL = "192.168.42.131:8081"
+        NEXUS_URL = "192.168.0.46:8081"
         // Repository where we will upload the artifact
         NEXUS_REPOSITORY = "maven-releases"
         // Jenkins credential id to authenticate to Nexus OSS
@@ -28,23 +28,23 @@ pipeline{
     stages{
         stage('Checkout'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:calamza/holamundo.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/fasan638/holamundo.git']]])
             }
         }
         stage('Download artifact from nexus'){
             agent {
-                label 'docker'
+                label 'master'
             }
             steps{
                 sh '''
                     pwd 
-                    curl -v -u admin:hola1234 -o app.jar http://192.168.42.131:8081/repository/maven-releases/org/springframework/Jenkins-holamundo/0.2.2/Jenkins-holamundo-0.2.2.jar
+                    curl -v -u jenkins:Curso322 -o app.jar http://192.168.0.46:8081/repository/maven-releases/org/springframework/Jenkins-holamundo/0.2.2/Jenkins-holamundo-0.2.2.jar
                 '''
             }
         }
         stage('Build container'){
             agent {
-                label 'docker'
+                label 'master'
             }
             steps{
                 sh '''
@@ -56,19 +56,19 @@ pipeline{
         } //fin stage build container
         stage('Upload container'){
             agent {
-                label 'docker'
+                label 'master'
             }
             steps{
                 sh '''
-                    docker login -u admin -p hola1234 192.168.42.131:8082
-                    docker push 192.168.42.131:8082/holamundo:latest
+                    docker login -u jenkins -p Curso322 192.168.0.46:8082
+                    docker push 192.168.0.46:8082/holamundo:latest
                 '''
 
             }
         } //fin stage build container
         stage('Deploy container'){
             agent {
-                label 'docker'
+                label 'master'
             }
             steps{
                 sh '''
@@ -80,7 +80,7 @@ pipeline{
         
         stage("Post") {
             agent {
-                label 'docker'
+                label 'master'
             }
             steps {
                 sh '''
