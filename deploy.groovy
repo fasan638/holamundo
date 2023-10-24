@@ -33,7 +33,7 @@ pipeline{
         }
         stage('Download artifact from nexus'){
             agent {
-                label 'master'
+                label 'maven'
             }
             steps{
                 sh '''
