@@ -60,7 +60,7 @@ pipeline{
             }
             steps{
                 sh '''
-                    docker login -u jenkins -p Curso322 192.168.0.46:8082
+                    docker login -u fers31 -p Docker2022 192.168.0.46:8082
                     docker push 192.168.0.46:8082/holamundo:latest
                 '''
 
