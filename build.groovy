@@ -43,7 +43,7 @@ pipeline{
         }
         stage('Upload to nexus'){
             agent {
-                label 'nexus'
+                label 'master'
             }
             steps{
                 script{
