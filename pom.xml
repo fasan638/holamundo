@@ -13,12 +13,6 @@
            <maven.compiler.source>1.6</maven.compiler.source>
            <maven.compiler.target>1.6</maven.compiler.target>
      </properties>
-
-    <parent>
-        <groupid>org.springframework.boot</groupid>
-        <artifactid>spring-boot-starter-parent</artifactid>
-        <version>1.2.7.release</version>
-    </parent>
     
       <dependencies>
            <dependency>
