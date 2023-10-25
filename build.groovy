@@ -90,7 +90,7 @@ pipeline{
         
         stage("Post") {
             agent {
-                label 'maven'
+                label 'agente_nexus'
             }
             steps {
                 sh '''
