@@ -1,6 +1,6 @@
 pipeline{
     agent {
-         label 'maven'
+         label 'master'
     }
     /*
     tools {
@@ -43,7 +43,7 @@ pipeline{
         }
         stage('Upload to nexus'){
             agent {
-                label 'agente_nexus'
+                label 'master'
             }
             steps{
                 script{
@@ -90,7 +90,7 @@ pipeline{
         
         stage("Post") {
             agent {
-                label 'agente_nexus'
+                label 'master'
             }
             steps {
                 sh '''
