@@ -49,7 +49,7 @@ pipeline{
             steps{
                 sh '''
                     docker build -t holamundo .
-                    docker tag holamundo:latest 192.168.42.131:8082/holamundo:latest
+                    docker tag holamundo:latest 192.168.42.200:8082/holamundo:latest
                 '''
 
             }
