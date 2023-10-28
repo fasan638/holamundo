@@ -54,13 +54,15 @@ pipeline{
 
             }
         } //fin stage build container
+        
+        //user y pass de nexus dado que sube al contenedor docker
         stage('Upload container'){
             agent {
                 label 'maven'
             }
             steps{
                 sh '''
-                    docker login -u admin -p Curso322 192.168.0.200:8082
+                    docker login -u admin -p Curso322 192.168.0.200:8082   
                     docker push 192.168.0.200:8082/holamundo:latest
                 '''
 
